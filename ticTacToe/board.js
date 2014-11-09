@@ -4,17 +4,13 @@ function Board (){
   this.rows = [[null, null, null],
                [null, null, null],
                [null, null, null]];
-  
+
 }
 
 
 Board.prototype.isWon = function(){
-  return !!this.winner();
+  return !!(this.diagnalWon() || this.horizontalWon() || this.verticalWon());
 };
-
-Board.prototype.isTie = function(){
-  return this.isFull() && !this.isWon();
-}
 
 Board.prototype.isFull = function(){
   for(var i = 0; i < 3; i++){
@@ -26,10 +22,6 @@ Board.prototype.isFull = function(){
   }
   return true;
 }
-
-Board.prototype.winner = function(){
-  return this.diagnalWon() || this.horizontalWon() || this.verticalWon();
-};
 
 Board.prototype.isEmpty = function(pos){
   return !this.rows[pos[0]][pos[1]];
@@ -59,7 +51,7 @@ Board.prototype.verticalWon = function(){
       tRows[j][i] = this.rows[i][j];
     }
   }
-  
+
   return this.arrWon(tRows);
 
 };
